@@ -1,5 +1,5 @@
 import pygame
-from Settings import *
+from settings import *
 from pygame.locals import *
 import sys
 
