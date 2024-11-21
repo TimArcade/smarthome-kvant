@@ -1,2 +1,2 @@
-import from settings.py *
+a = 1010
 print(a)
