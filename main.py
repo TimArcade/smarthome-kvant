@@ -57,6 +57,14 @@ while True:
         elif event.type == MOUSEMOTION and moving:
             if rect.centerx >= W:
                 rect.centerx = W-1
+            elif rect.centerx <= 0: 
+                rect.centerx = 1
+
+            if rect.centery >= H:
+                rect.centery = H-1
+            elif rect.centery <= 0: 
+                rect.centery = 1
+
             else:
                 rect.move_ip(event.rel)
                 # print(event.rel)
