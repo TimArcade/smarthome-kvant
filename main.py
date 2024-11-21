@@ -3,65 +3,69 @@ from settings import *
 from pygame.locals import *
 import sys
 
-# Take colors input
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 
-# Construct the GUI game
 pygame.init()
-
-# Set dimensions of game GUI
 
 screen = pygame.display.set_mode((W, H))
 
-# Take image as input
-img = pygame.image.load('geek2.jpg')
-img.convert()
+img = pygame.image.load('geek2.jpg').convert()
+img_rect = img.get_rect(center = (Half_W, Half_H))
 
-# Draw rectangle around the image
-rect = img.get_rect()
-rect.center = Half_W, Half_H
+screen.blit(img, img_rect)
+pygame.display.update()
 
-# Set running and moving values
+scale = pygame.transform.scale(img, (img.get_width() // 1, img.get_height() // 1))
+rect = scale.get_rect(center = (Half_W, Half_H))
+
+screen.blit(scale, rect)
+pygame.display.update(rect)
+
 running = True
 moving = False
 
-# Setting what happens when game
-# is in running state
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             sys.exit()
 
-        # Making the image move
         elif event.type == MOUSEBUTTONDOWN:
             if event.button == 3:
                 moving = True
                 if rect.collidepoint(event.pos):
                     moving = True
+            if event.button == 4:
+                print("p")
+                ratio = ratio + 0.1
+                try:
+                    scale = pygame.transform.scale(img, (img.get_width() // ratio, img.get_height() // ratio))
+                except:
+                    ratio = 0
+                
+            if event.button == 5:
+                print("p")
+                ratio = ratio - 0.1
+                try:
+                    scale = pygame.transform.scale(img, (img.get_width() // ratio, img.get_height() // ratio))
+                except:
+                    ratio = 0
 
-        # Set moving as False if you want
-        # to move the image only with the
-        # mouse click
-        # Set moving as True if you want
-        # to move the image without the
-        # mouse click
         elif event.type == MOUSEBUTTONUP:
             moving = False
 
-        # Make your image move continuously
         elif event.type == MOUSEMOTION and moving:
-            rect.move_ip(event.rel)
+            if rect.centerx >= W:
+                rect.centerx = W-1
+            else:
+                rect.move_ip(event.rel)
+                # print(event.rel)
+                print(rect.center)
 
-    # Set screen color and image on screen
     screen.fill(BLACK)
-    screen.blit(img, rect)
+    screen.blit(scale, rect)
 
-    # Construct the border to the image
-    pygame.draw.rect(screen, BLUE, rect, 2)
+    # pygame.draw.rect(screen, BLUE, rect, 2)
 
-    # Update the GUI pygame
     pygame.display.update()
-
-# Quit the GUI game
 pygame.quit()
