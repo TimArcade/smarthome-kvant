@@ -8,7 +8,7 @@ BLUE = (0, 0, 255)
 
 pygame.init()
 
-screen = pygame.display.set_mode((W, H))
+screen = pygame.display.set_mode((W + W2, H))
 
 img = pygame.image.load('geek2.jpg').convert()
 img_rect = img.get_rect(center = (Half_W, Half_H))
@@ -36,7 +36,6 @@ while True:
                 if rect.collidepoint(event.pos):
                     moving = True
             if event.button == 4:
-                print("p")
                 ratio = ratio + 0.1
                 try:
                     scale = pygame.transform.scale(img, (img.get_width() // ratio, img.get_height() // ratio))
@@ -44,7 +43,6 @@ while True:
                     ratio = 0
                 
             if event.button == 5:
-                print("p")
                 ratio = ratio - 0.1
                 try:
                     scale = pygame.transform.scale(img, (img.get_width() // ratio, img.get_height() // ratio))
@@ -62,7 +60,7 @@ while True:
 
             if rect.centery >= H:
                 rect.centery = H-1
-            elif rect.centery <= 0: 
+            elif rect.centery <= 0:
                 rect.centery = 1
 
             else:
