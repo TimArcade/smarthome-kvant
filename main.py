@@ -35,9 +35,10 @@ while True:
 
         # Making the image move
         elif event.type == MOUSEBUTTONDOWN:
-            moving = True
-            if rect.collidepoint(event.pos):
+            if event.button == 3:
                 moving = True
+                if rect.collidepoint(event.pos):
+                    moving = True
 
         # Set moving as False if you want
         # to move the image only with the
